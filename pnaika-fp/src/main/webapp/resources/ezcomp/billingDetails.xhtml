@@ -1,0 +1,111 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:cc="http://xmlns.jcp.org/jsf/composite"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+
+    <!-- INTERFACE -->
+    <cc:interface>
+        <cc:attribute name ="BillingDetails" required="true"/>
+        <cc:attribute name = "EmpController" required="false"/>
+    </cc:interface>
+
+    <!-- IMPLEMENTATION -->
+    <cc:implementation>
+        
+        <h:panelGroup rendered="#{not facesContext.validationFailed and not empty facesContext.messageList}" layout="block" class="alert alert-warning alert-dismissible">
+                    <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                    <h:messages style="color:red" layout="table" globalOnly="false" showSummary="true" showDetail="false"/>
+        </h:panelGroup>
+        
+        <h:dataTable style="font-size: small"  rendered="#{not empty cc.attrs.BillingDetails}" class="table table-hover table-striped " value ="#{cc.attrs.BillingDetails}" var = "bill">
+            <h:column>
+                <f:facet name ="header">      
+                    <h:outputText value ="Billing ID"/>
+                </f:facet>
+                <h:outputText value ="#{bill.getBilling_id()}"/>
+            </h:column>
+            
+            <h:column>
+                <f:facet name ="header">      
+                    <h:outputText value ="Customer Name"/>
+                </f:facet>
+                <h:outputText value ="#{bill.getCustomer().getCust_name()}"/>
+            </h:column>
+            
+            <h:column>
+                <f:facet name ="header">      
+                    <h:outputText value ="Customer Phone No."/>
+                </f:facet>
+                <h:outputText value ="#{bill.getCustomer().getCust_phone()}"/>
+            </h:column>
+            
+            <h:column>
+                <f:facet name ="header">      
+                    <h:outputText value ="Customer Email"/>
+                </f:facet>
+                <h:outputText value ="#{bill.getCustomer().getCust_email()}"/>
+            </h:column>
+            
+            <h:column>
+                <f:facet name ="header">      
+                    <h:outputText value ="Parking Cost"/>
+                </f:facet>
+                <h:outputText value ="#{bill.getParking().getParking_amount()}"/>
+            </h:column>
+            
+            <h:column>
+                <f:facet name ="header">      
+                    <h:outputText value ="Parking Hours"/>
+                </f:facet>
+                <h:outputText value ="#{bill.getParking().getParking_hours()}"/>
+            </h:column>
+            
+            <h:column>
+                <f:facet name ="header">      
+                    <h:outputText value ="Slot Name"/>
+                </f:facet>
+                <h:outputText value ="#{bill.getParking().getParking_slotname()}"/>
+            </h:column>
+            
+            <h:column>
+                <f:facet name ="header">      
+                    <h:outputText value ="Vehicle Type"/>
+                </f:facet>
+                <h:outputText value ="#{bill.getVehicle().getVehicle_type()}"/>
+            </h:column>
+            
+            <h:column>
+                <f:facet name ="header">      
+                    <h:outputText value ="Payment Type"/>
+                </f:facet>
+                <h:outputText value ="#{bill.getPayment().getPayment_type()}"/>
+            </h:column>
+            
+            <h:column>
+                <f:facet name ="header">      
+                    <h:outputText value ="Parking Date"/>
+                </f:facet>
+                <h:outputText  value ="#{bill.getParking().getParking_date()}">
+                    <f:convertDateTime type="date" dateStyle="default"/>
+                </h:outputText>    
+            </h:column>
+            
+            <h:column>
+                <f:facet name ="header">      
+                    <h:outputText value ="Parking Time"/>
+                </f:facet>
+                <h:outputText  value ="#{bill.getParking().getParking_date()}">
+                    <f:convertDateTime type="time" dateStyle="default"/>
+                </h:outputText>    
+            </h:column>
+
+        </h:dataTable>
+        
+        <h:outputLabel rendered="#{empty cc.attrs.BillingDetails}" value="Customer Details not available"></h:outputLabel>
+
+
+    </cc:implementation>
+</html>

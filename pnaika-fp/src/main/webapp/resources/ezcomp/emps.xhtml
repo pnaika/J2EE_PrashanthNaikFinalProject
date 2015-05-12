@@ -1,0 +1,74 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:cc="http://xmlns.jcp.org/jsf/composite"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      template="./../WEB-INF/portalTemplate.xhtml">
+
+    <!-- INTERFACE -->
+    <cc:interface>
+        <cc:attribute name="employees" required="true"/>
+    </cc:interface>
+
+    <!-- IMPLEMENTATION -->
+    <cc:implementation>
+        <h:dataTable class="table table-hover table-striped " value="#{cc.attrs.employees}" var="employee">
+            <h:column>
+                <f:facet name="header"><h:outputText value="ID"/></f:facet>
+                <h:outputText value="#{employee.emp_id}"/>
+            </h:column>
+            
+            <h:column>
+                <f:facet name="header"><h:outputText value="Name"/></f:facet>
+                <h:outputText value="#{employee.emp_name}"/>
+            </h:column>
+            
+            <h:column>
+                <f:facet name="header"><h:outputText value="email ID"/></f:facet>
+                <h:outputText value="#{employee.emp_email}"/>
+            </h:column>
+            
+            <h:column>
+                <f:facet name="header"><h:outputText value="Contact No."/></f:facet>
+                <h:outputText value="#{employee.emp_phone}"/>
+            </h:column>
+            
+            <h:column>
+                <f:facet name ="header">      
+                    <h:outputText value ="City"/>
+                </f:facet>
+                <h:outputText value ="#{employee.getAddress().getAddress_city()}"/>
+            </h:column>        
+            
+            <h:column>
+                <f:facet name ="header">      
+                    <h:outputText value ="State"/>
+                </f:facet>
+                <h:outputText value ="#{employee.getAddress().getAddress_state()}"/>
+            </h:column>
+            
+            <h:column>
+                <f:facet name ="header">      
+                    <h:outputText value ="Zip Code"/>
+                </f:facet>
+                <h:outputText value ="#{employee.getAddress().getAddress_zip()}"/>
+            </h:column>
+            
+            <h:column>
+                <f:facet name="header"><h:outputText value="Last Updated Date"/></f:facet>
+                <h:outputText value="#{employee.empLastUpdated}">
+                    <f:convertDateTime type="date" dateStyle="default" timeStyle="full"/>
+                </h:outputText>
+            </h:column>
+            
+            <h:column>
+                <f:facet name="header"><h:outputText value="Last Updated Time"/></f:facet>
+                <h:outputText value="#{employee.empLastUpdated}">
+                    <f:convertDateTime type="time" dateStyle="default" timeStyle="full"/>
+                </h:outputText>
+            </h:column>
+            
+        </h:dataTable>
+    </cc:implementation>
+</html>

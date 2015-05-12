@@ -1,0 +1,95 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      class="no-js" lang="en"
+      xmlns:p="http://xmlns.jcp.org/jsf/passthrough">
+    <h:head>
+        <title class="title"><ui:insert name="title">Default title</ui:insert></title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+        <link href='http://fonts.googleapis.com/css?family=Lora:400,700' rel='stylesheet' type='text/css'/>
+        <link rel="stylesheet" type="text/css" href="../cssMP4.css"/>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css"/>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap-theme.min.css"/>
+	<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css"/>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>   
+        <style>
+            *{
+                box-sizing: border-box;
+                font-family: 'Lora', serif;
+            }
+            header{
+                text-align: center;
+                width: auto;
+                height:auto;
+                font-size: 45px;
+                padding: 0 15px 0 15px;
+                border-color: black;
+            }
+            #SIform{
+                width:35%;
+                padding: 20px 20px 10px 15px;
+                margin: 20px 20px 10px 15px;
+                margin-left: 38%;
+                font-family: 'Lora', serif;
+            }
+            .title{
+                color: #d9534f;
+                padding-left: 3%
+            }
+        </style>        
+        <script>
+            function FormValidation(){
+                //User Name Validation 
+                var un=document.getElementById('j_username').value;
+                if(un === ""){
+                    alert('User name is mandatory');
+                    document.getElementById('j_username').style.borderColor = "red";
+                    document.getElementById('j_username').focus();
+                    document.getElementById('j_username').select();
+                    return false;
+                }
+
+                //password Validation 
+                var pw=document.getElementById('j_password').value;
+                if(pw === ""){
+                    alert('Please Enter PASSWORD');
+                    document.getElementById('j_password').style.borderColor = "red";
+                    document.getElementById('j_password').focus();
+                    document.getElementById('j_password').select();        
+                    return false;
+                }
+            }
+        </script>
+
+    </h:head>
+    <h:body>
+        <a href="index.html"><img class="logo" src="../images/GPS_logo.jpg" alt="GPS" title="Global Parking System"/></a>
+        
+        <h2 align="center"><ui:insert name="heading">Default Heading</ui:insert></h2>
+        <h:panelGroup layout="block"
+              class="alert-box alert round"
+              p:data-alert=""
+              rendered="#{not facesContext.validationFailed and not empty facesContext.messageList}">
+
+        </h:panelGroup> 
+        
+        <ui:insert name="body">Default Body</ui:insert>
+        
+         <footer>
+        <nav class="navbar navbar-default navbar-fixed-bottom">
+            <div class="container">
+                <span class="glyphicon glyphicon-copyright-mark" aria-hidden="false">CopyRight |PrashanthNaik 2015 ||</span>
+                <a href="https://www.linkedin.com/" target="_blank" id="link"><i class="fa fa-linkedin"></i></a>
+                <a href="https://www.twitter.com/" target="_blank" id="tw"><i class="fa fa-twitter"></i></a>
+                <a href="https://www.facebook.com/" target="_blank" id="fb"><i class="fa fa-facebook-official"></i></a>
+                <a href="https://www.whatsapp.com/" target="_blank" id="wa"><i class="fa fa-whatsapp"></i></a>
+                <a href="https://www.instagram.com/" target="_blank" id="ins"><i class="fa fa-instagram"></i></a>
+                <a href="https://www.google.com/" target="_blank" id="gm"><i class="fa fa-google"></i></a>
+            </div>
+        </nav>
+    </footer>
+    </h:body>
+</html>
+

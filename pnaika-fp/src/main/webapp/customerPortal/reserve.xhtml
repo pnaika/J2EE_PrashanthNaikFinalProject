@@ -1,0 +1,104 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                template="./../WEB-INF/portalTemplate.xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:p="http://xmlns.jcp.org/jsf/passthrough"
+                >
+                    
+
+    <ui:define name="title">
+        RESERVE A SITE !
+    </ui:define>
+
+    <ui:define name="heading">
+        <div  class="page-header" style="color: #d9534f;background-color: wheat">
+            #{loginBean.remoteUser.toUpperCase()} ,Please Complete the below form and Submit! 
+        </div>
+    </ui:define>
+    
+    <ui:define name="body">
+        
+        <div align="right" style = " vertical-align: top; display: block;padding-right: 5%">
+            <a  href = "../index.xhtml">Main Menu </a> |
+            <a href="welcome.xhtml">Go Back!</a>
+        </div>
+        
+        <h:panelGroup rendered="#{not facesContext.validationFailed and not empty facesContext.messageList}" layout="block" class="alert alert-warning alert-dismissible">
+                    <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                    <h:messages style="color:red" layout="table" globalOnly="false" showSummary="true" showDetail="false"/>
+        </h:panelGroup>
+                
+        <h:outputText rendered="#{empty billingController.billingService.findAll()}">
+            No billing Information available!
+        </h:outputText>
+                
+                <div align = "center" style="padding-top: 60px; border: black solid thin;">
+                <h:form>
+                    <table>
+                        <tr>
+                            <td height="35px">
+                                <h:outputLabel for="parkingHours" value="How many hours you wish to park ? : " />
+                            </td>
+                            <td height="35px">
+                                <h:inputText  class="form-control"  required="true" requiredMessage="Please enter hours in numbers" id="parkingHours" value="#{billingController.parking_hours}" validatorMessage="hours should be in positive number">                                                                   
+                                    <f:convertNumber minIntegerDigits="1"/>
+                                </h:inputText>
+                                
+                                <h:messages  for="parkingHours" style="color:red"/>
+                            </td>
+                        </tr> 
+                        <tr>
+                            <td height="35px">
+                                <h:outputLabel for="name" value="Parking slot name : " />
+                            </td>
+                            <td height="35px">
+                                <h:inputText class="form-control" id ="name" value ="#{billingController.parking_slotname}"  p:placeholder="SlotName Eg.P6" required="true" requiredMessage="Please enter Parking slot name" validatorMessage="Start with 'P' and a number">
+                                    <f:validateRegex pattern="[Pp]+[0-9]"/>  
+                                </h:inputText>
+                                <h:messages  for="name" style="color:red"/>
+                            </td>
+                        </tr>
+                        
+                        <tr>
+                            <td height="35px">
+                                <h:outputLabel for="vehicleType1" value="Select Vehicle Type : " />
+                            </td>
+                            <td height="35px">
+                                <h:selectOneMenu id="vehicleType1" style="width:250px" value="#{billingController.vehicle_type}">
+                                    <f:selectItems value="#{vehicleService.findType()}" />
+                                </h:selectOneMenu>
+                                <h:messages  for="vehicleType1" style="color:red"/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td height="35px">
+                                <h:outputLabel for="paymentType" value="Select Payment Type : " />
+                            </td>
+                            <td height="35px">
+                                <h:selectOneMenu id="paymentType" style="width:250px" value="#{billingController.payment_type}">
+                                    <f:selectItems value="#{paymentService.findType()}" />
+                                </h:selectOneMenu>
+                              
+                                <h:messages  for="paymentType" style="color:red"/>
+                            </td>
+                        </tr>
+                        <tr>
+                        <td height="35px" colspan="2">
+                            <h:commandButton value="Submit" action="#{billingController.createNewBill()}"/>
+                        </td>   
+                        <td>
+                            <h:commandButton value="reset" type="reset" />   
+                        </td>
+                    </tr>
+                </table>
+            </h:form>
+        </div>    
+        <br/>
+        
+        <hr/>
+        <h:form><h:commandLink action="#{loginBean.doLogout()}" value="Logout"/></h:form>
+    </ui:define>
+</ui:composition>

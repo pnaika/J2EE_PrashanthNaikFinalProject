@@ -1,0 +1,127 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:cc="http://xmlns.jcp.org/jsf/composite"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://xmlns.jcp.org/jsf/passthrough">
+
+    <!-- INTERFACE -->
+    <cc:interface>
+        <cc:attribute name ="CustomerDetails" required="true"/>
+        <cc:attribute name = "EmpController" required="false"/>
+    </cc:interface>
+
+    <!-- IMPLEMENTATION -->
+    <cc:implementation>
+        <h:form>
+            <table class="table-striped" style="font-size: medium">
+                <tr>
+                    <td>
+                        <h:outputText value ="Enter Customer ID"/>
+                    </td>
+                    <td> 
+                        <h:inputText p:placeholder="Enter Customer ID" class="form-control"  maxlength="4" validatorMessage="Please enter a valid Customer ID" id ="searchboxid" value="#{employeeBean.searchtext}">
+                            <f:validateRegex pattern="^[1-9]+"/> 
+                        </h:inputText>
+                    </td>
+                    <td><h:commandButton action ="#{employeeBean.Search()}" value ="Search"/></td>
+                </tr>
+                <tr>
+                    <td colspan="2">
+                        <h:messages  for="searchboxid" style="color:red" />
+                    </td>
+                </tr>
+            </table>
+        </h:form>
+        
+        
+        <h:dataTable style="font-size: small"  rendered="#{not empty cc.attrs.CustomerDetails}" class="table table-hover table-striped " value ="#{cc.attrs.CustomerDetails}" var = "std">
+            <h:column>
+                <f:facet name ="header">      
+                    <h:outputText value ="Customer ID"/>
+                </f:facet>
+                <h:outputText value ="#{std.getCust_id()}"/>
+            </h:column>
+
+            <h:column>
+                <f:facet name ="header">      
+                    <h:outputText value ="Customer Name"/>
+                </f:facet>
+                <h:outputText value ="#{std.getCust_name()}"/>
+            </h:column> 
+
+            <h:column>
+                <f:facet name ="header">      
+                    <h:outputText value ="Email ID"/>
+                </f:facet>
+                <h:outputText value ="#{std.getCust_email()}"/>
+            </h:column>
+
+            <h:column>
+                <f:facet name ="header">      
+                    <h:outputText value ="Contact Number"/>
+                </f:facet>
+                <h:outputText value ="#{std.getCust_phone()}"/>
+            </h:column>
+            
+            <h:column>
+                <f:facet name ="header">      
+                    <h:outputText value ="City"/>
+                </f:facet>
+                <h:outputText value ="#{std.getAddress().getAddress_city()}"/>
+            </h:column>        
+            
+            <h:column>
+                <f:facet name ="header">      
+                    <h:outputText value ="State"/>
+                </f:facet>
+                <h:outputText value ="#{std.getAddress().getAddress_state()}"/>
+            </h:column>
+            
+            <h:column>
+                <f:facet name ="header">      
+                    <h:outputText value ="Zip Code"/>
+                </f:facet>
+                <h:outputText value ="#{std.getAddress().getAddress_zip()}"/>
+            </h:column>
+            
+            <h:column>
+                <f:facet name ="header">      
+                    <h:outputText value ="Last Update Date"/>
+                </f:facet>
+                <h:outputText value ="#{std.getCustLastUpdate()}">
+                    <f:convertDateTime type="date" dateStyle="default"/>
+                </h:outputText>
+            </h:column>
+            
+            <h:column>
+                <f:facet name ="header">      
+                    <h:outputText value ="Last Update Time"/>
+                </f:facet>
+                <h:outputText value ="#{std.getCustLastUpdate()}">
+                    <f:convertDateTime type="time" dateStyle="default"/>
+                </h:outputText>
+            </h:column>
+            
+            <h:column>
+            <h:form>
+                <h:commandLink action ="#{employeeBean.selectCustomer(std)}" value ="Update Information"/>
+            </h:form>
+            </h:column>
+            
+            <h:column>
+            <h:form>
+                <h:commandLink action ="#{employeeBean.deleteCustomer(std)}" value ="Delete this Customer"/>
+            </h:form>
+            </h:column>
+            
+            
+        </h:dataTable>
+        
+        <h:outputLabel rendered="#{empty cc.attrs.CustomerDetails}" value="Customer Details not available"></h:outputLabel>
+
+
+    </cc:implementation>
+</html>

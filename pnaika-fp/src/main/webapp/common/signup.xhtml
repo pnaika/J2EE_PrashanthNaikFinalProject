@@ -1,0 +1,143 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://xmlns.jcp.org/jsf/passthrough">
+
+    <body>
+
+        <ui:composition template="./../WEB-INF/publicTemplate.xhtml">
+
+            <ui:define name="title">
+                Sign Up Employee
+            </ui:define>
+
+            <ui:define name="heading">
+                <div  class="page-header" style="color: #d9534f;background-color: wheat">
+                Welcome to the Employee Sign up Page!!!
+                </div>
+            </ui:define>
+
+            <ui:define name="body">
+                <div align="right" style = " vertical-align: top; display: block;padding-right: 5%">
+                    <a  href = "../index.xhtml">Main Menu </a> |
+                    <a href="../login.xhtml">LogIn</a>
+                 </div>
+                
+                <h:panelGroup rendered="#{not facesContext.validationFailed and not empty facesContext.messageList}" layout="block" class="alert alert-warning alert-dismissible">
+                    <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                    <h:messages style="color:red" layout="table" globalOnly="false" showSummary="true" showDetail="false"/>
+                </h:panelGroup>
+                
+                <div class="table-responsive" align = "center" style="padding-top: 60px; border: black solid thin;">
+
+                    <h:form >
+                        <table>
+                            <tr>
+                                <td height="35px">
+                                    <h:outputLabel for="empName" value="Username  " />
+                                </td>
+                                <td height="35px">
+                                    <h:inputText  p:placeholder="User Name" class="form-control"  required="true" requiredMessage="Please enter UserName" id="empName" value="#{commonController.empUserName}" validatorMessage="Can have only alphanumeric">                                                                   
+                                        <f:validateRegex pattern="[A-Za-z 0-9]+"/>  
+                                    </h:inputText>            
+                                    <h:messages  for="empName" style="color:red"/>
+                                </td>
+                            </tr> 
+
+                            <tr>
+                                <td height="35px">
+                                    <h:outputLabel for="password" value= "Password : " />
+                                </td>
+                                <td height="35px">
+                                    <h:inputSecret p:placeholder="Password" maxlength="8"  class="form-control"  required="true" requiredMessage="Please enter passsword" id="password" value="#{commonController.emppassword}" validatorMessage="Password can be of 8 char length">  
+                                    </h:inputSecret>          
+                                    <h:messages  for="password" style="color:red"/>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td height="35px">
+                                    <h:outputLabel for="eName" value="Employee Name " />
+                                </td>
+                                <td height="35px">
+                                    <h:inputText p:placeholder="Full Name" class="form-control"  required="true" requiredMessage="Please enter Employee's Full Name" id="eName" value="#{commonController.emp_name}" validatorMessage="No special characters allowed other than '.' and ',' ">                                                                   
+                                        <f:validateRegex pattern="[A-Za-z .,]+"/>  
+                                    </h:inputText>            
+                                    <h:messages  for="eName" style="color:red"/>
+                                </td>
+                            </tr>                         
+                            <tr>
+                                <td height="35px">
+                                    <h:outputLabel for="Email" value="Employee Email " />
+                                </td>
+                                <td height="35px">
+                                    <h:inputText p:placeholder="Email" class="form-control" id ="Email" value ="#{commonController.emp_email}" required="true" requiredMessage="Please enter customer email address" validatorMessage="Customer email not in the valid format">
+                                        <f:validateRegex pattern="^[^@]+@[^@]+\.[^@]+$"/>  
+                                    </h:inputText>
+                                    <h:messages  for="Email" style="color:red"/>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td height="35px">
+                                    <h:outputLabel for="phone" value="Phone Number : " />
+                                </td>
+                                <td height="35px">
+                                    <h:inputText p:placeholder="Phone No." maxlength="10" class="form-control"  required="true" requiredMessage="Please enter Phone Number" id="phone" value="#{commonController.emp_phone}" validatorMessage="only number of 10 digit length is allowed">                                                                   
+                                        <f:validateRegex pattern="[0-9]+"/>  
+                                    </h:inputText>            
+                                    <h:messages  for="phone" style="color:red"/>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td height="35px">
+                                    <h:outputLabel for="city" value="City " />
+                                </td>
+                                <td height="35px">
+                                    <h:inputText p:placeholder="City" class="form-control"  required="true" requiredMessage="Please enter City Name" id="city" value="#{commonController.address_city}" validatorMessage="City name is alpebatic">                                                                     
+                                    </h:inputText>            
+                                    <h:messages  for="city" style="color:red"/>
+                                </td>
+                            </tr>
+                            
+                            <tr>
+                                <td height="35px">
+                                    <h:outputLabel for="state" value="State  " />
+                                </td>
+                                <td height="35px">
+                                    <h:inputText  p:placeholder="State" class="form-control"  required="true" requiredMessage="Please enter state Name" id="state" value="#{commonController.address_state}" validatorMessage="State name is alpebatic">                                                                     
+                                    </h:inputText>            
+                                    <h:messages  for="state" style="color:red"/>
+                                </td>
+                            </tr>
+                            
+                            <tr>
+                                <td height="35px">
+                                    <h:outputLabel for="zip" value="Zip Code " />
+                                </td>
+                                <td height="35px">
+                                    <h:inputText p:placeholder="Zip Code" class="form-control"  required="true" requiredMessage="Please enter Zip Code" id="zip" value="#{commonController.address_zip}" validatorMessage="Zip Code">                                                                     
+                                    </h:inputText>            
+                                    <h:messages  for="zip" style="color:red"/>
+                                </td>
+                            </tr>
+                            
+                            <tr>
+                                <td height="35px" colspan="2">
+                                    <h:commandButton value="SignUp" action="#{commonController.createNewEmployee()}"/>
+                                </td>   
+                                <td>
+                                    <h:commandButton value="reset" type="reset" />   
+                                </td>
+                            </tr>
+                        </table>
+                    </h:form>
+                </div>
+                <br/>   
+            <a href="../index.xhtml">Go Back!</a>
+            </ui:define>
+        </ui:composition>
+    </body>
+</html>

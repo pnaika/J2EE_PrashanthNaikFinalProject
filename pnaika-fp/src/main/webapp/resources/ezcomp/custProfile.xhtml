@@ -1,0 +1,126 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:cc="http://xmlns.jcp.org/jsf/composite"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      template="./../WEB-INF/portalTemplate.xhtml"
+      xmlns:p="http://xmlns.jcp.org/jsf/passthrough">
+
+    <!-- INTERFACE -->
+    <cc:interface>
+        <cc:attribute name="customer" required="true" type="edu.iit.sat.itmd4515.pnaika.fp.domain.Customer"/>
+        <cc:attribute name="readonly" type="java.lang.Boolean" required="false" default="true" />
+        <cc:attribute name="action" required="false" method-signature="java.lang.String action()"/>
+    </cc:interface>
+
+    <!-- IMPLEMENTATION -->
+    <cc:implementation>
+        
+    <h:panelGroup rendered="#{not facesContext.validationFailed and not empty facesContext.messageList}" layout="block" class="alert alert-warning alert-dismissible">
+                    <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                    <h:messages style="color:red" layout="table" globalOnly="false" showSummary="true" showDetail="false"/>
+    </h:panelGroup>    
+    
+    <h:form>
+        <table class="table-responsive" id="SIform">           
+            <tr>
+                <tr>
+                <td height="35px">
+                    <h:outputLabel title="UserName" for="username" value ="UserName" />
+                </td>
+                <td height="35px">
+                    <h:inputText class="form-control" p:placeholder="User Name" id ="username" requiredMessage="User Name is mandatory" value ="#{cc.attrs.customer.user.userName}" required="true" validatorMessage="UserName is Mandatory"/>                       
+                    <h:messages  for="username" style="color:red"/>
+                </td>
+                </tr>
+                <tr>
+                <td height="35px">
+                    <h:outputLabel title="Password" for="password" value ="Password" />
+                </td>
+                <td height="35px">
+                    <h:inputSecret class="form-control" id ="password" requiredMessage="Password is mandatory" value ="#{cc.attrs.customer.user.password}" p:placeholder="Password" required="true" validatorMessage="Password is Mandatory"/>                       
+                    <h:messages  for="password" style="color:red"/>
+                </td>
+                </tr>
+                
+       
+                <tr>
+                <td height="35px">
+                <h:outputLabel title="Customer Name" for="custname" value ="Customer Name" />
+                </td>
+                <td height="35px">    
+                <h:inputText p:placeholder="Full Name" class="form-control"  required="true" requiredMessage="Please enter Customer Name" id="custname" value="#{cc.attrs.customer.cust_name}" validatorMessage="No special characters allowed other than '.' and ',' ">                                                                   
+                    <f:validateRegex pattern="[A-Za-z .,]+"/>  
+                </h:inputText>            
+                <h:messages  for="custname" style="color:red"/>
+                </td>
+                </tr>    
+                
+                <tr>
+                <td height="35px">
+                <h:outputLabel title="Contact Number" for="phone" value="Contact Number" />
+                </td>
+                <td height="35px">
+                    <h:inputText p:placeholder="Phone No." required="true" maxlength="10" requiredMessage="Phone number is mandatory" converterMessage="Please enter valid phone number"  class="form-control" id ="phone" value ="#{cc.attrs.customer.cust_phone}" validatorMessage="Phone number should be number and  10 digits length">            
+                    <f:validateRegex pattern="^[0-9]+"/>
+                </h:inputText>
+                <h:messages  for="phone" style="color:red"/>
+                </td>
+                </tr> 
+                
+                <tr>
+                <td height="35px">
+                <h:outputLabel title="Email" for="Email" value="Email"   />
+                </td>
+                <td height="35px">
+                <h:inputText p:placeholder="email" class="form-control" id ="Email" value ="#{cc.attrs.customer.cust_email}" required="true" requiredMessage="Please enter customer email address" validatorMessage="Student email not in the valid format">
+                    <f:validateRegex pattern="^[^@]+@[^@]+\.[^@]+$"/>  
+                </h:inputText>
+                <h:messages  for="Email" style="color:red"/>
+                </td>
+                </tr>
+                
+                <tr>
+                <td height="35px">
+                <h:outputLabel title="City" for="city" value="City"   />
+                </td>
+                <td height="35px">
+                    <h:inputText p:placeholder="City" class="form-control" id ="city" value ="#{cc.attrs.customer.address.address_city}" required="true" requiredMessage="Please enter customer city" validatorMessage="Valid city name">  
+                </h:inputText>
+                <h:messages  for="city" style="color:red"/>
+                </td>
+                </tr>
+            
+                <tr>
+                <td height="35px">
+                <h:outputLabel title="State" for="state" value="State"   />
+                </td>
+                <td height="35px">
+                    <h:inputText p:placeholder="State" class="form-control" id ="state" value ="#{cc.attrs.customer.address.address_state}" required="true" requiredMessage="Please enter customer State" validatorMessage="Valid STate name is required">  
+                </h:inputText>
+                <h:messages  for="state" style="color:red"/>
+                </td>
+                </tr>
+            
+                <tr>
+                <td height="35px">
+                <h:outputLabel title="zip" for="zip" value="Zip Code"   />
+                </td>
+                <td height="35px">
+                    <h:inputText p:placeholder="Zip Code"  class="form-control" id ="zip" value ="#{cc.attrs.customer.address.address_zip}" required="true" requiredMessage="Please enter customer zip code">  
+                </h:inputText>
+                <h:messages  for="zip" style="color:red"/>
+                </td>
+                </tr>
+            </tr>
+        </table>
+        <ui:fragment rendered="#{not cc.attrs.readonly}">
+                <div class="form-group">
+                        <h:commandButton action="#{cc.attrs.action}" class="button expand" value="Save"/>
+                </div>
+        </ui:fragment>
+    </h:form>
+    </cc:implementation>
+</html>
